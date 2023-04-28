@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .droptarget {
+            float: left;
+            width: 100px;
+            height: 35px;
+            margin: 15px;
+            padding: 10px;
+            border: 1px solid #EEE;
+        }
+        </style>
+</head>
+<style>
+    .droptarget {
+        float: left;
+        width: 100px;
+        height: 35px;
+        margin: 15px;
+        padding: 10px;
+        border: 1px solid #EEE;
+    }
+    </style>
+<body>
+    <div class="droptarget">
+  <p draggable="true" id="dragtarget">Drag me!</p>
+</div>
+
+<div class="droptarget">drop here</div>
+
+<p id="demo"></p>
+<script>
+    document.addEventListener("dragstart", function(event) {
+        event.dataTransfer.setData("Text", event.target.id);
+    });
+    
+    document.addEventListener("drag", function(event) {
+        document.getElementById("demo").innerHTML = "The p element is being dragged";
+    });
+    
+    document.addEventListener("dragover", function(event) {
+        event.preventDefault();
+    });
+    
+    document.addEventListener("drop", function(event) {
+        event.preventDefault();
+        if ( event.target.className == "droptarget" ) {
+            var data = event.dataTransfer.getData("Text");
+            event.target.appendChild(document.getElementById(data));
+            document.getElementById("demo").innerHTML = "The p element was dropped";
+        }
+    });
+    </script>
+</body>
+</html>
